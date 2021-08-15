@@ -1,0 +1,10 @@
+use Test;
+use Taurus::Seconds;
+
+plan 5;
+
+is seconds-to-str(59), "59s", "Less than 60";
+is seconds-to-str(3599), "59m 59s", "Less than 3600";
+is seconds-to-str(86399), "23h 59m 59s", "Less than 86400";
+is seconds-to-str(86401), "1d  0h  0m  1s", "More than 86400";
+throws-like { seconds-to-str(-1) }, Exception, message => /:s Constraint type check failed in binding to parameter/, "Negative Int check";

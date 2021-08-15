@@ -1,0 +1,6 @@
+use Test;
+
+plan 2;
+
+use-ok 'Taurus::CLI';
+use-ok 'Taurus::Seconds';
