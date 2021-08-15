@@ -1,3 +1,5 @@
+use Taurus::Seconds;
+
 use CSV::Parser;
 use Terminal::UI 'ui';
 use Terminal::ANSI::OO 't';
@@ -83,9 +85,9 @@ multi sub MAIN (
                 my $outgoing = .grep(*.[2] eqv "Outgoing Call").map(*.[4]).sum;
                 my $incoming = .grep(*.[2] eqv "Incoming Call").map(*.[4]).sum;
 
-                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Outgoing:", $outgoing / 3600);
-                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Incoming:",  $incoming / 3600);
-                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Total:",  ($incoming + $outgoing) / 3600);
+                $p1.put: "%-*s %s".sprintf($fmt, "Outgoing:", seconds-to-str($outgoing));
+                $p1.put: "%-*s %s".sprintf($fmt, "Incoming:",  seconds-to-str($incoming));
+                $p1.put: "%-*s %s".sprintf($fmt, "Total:",  seconds-to-str($outgoing + $incoming));
                 $p1.put: "";
             }
         } elsif %meta<number> -> $num {
@@ -99,9 +101,9 @@ multi sub MAIN (
                 my $outgoing = .grep(*.[2] eqv "Outgoing Call").map(*.[4]).sum;
                 my $incoming = .grep(*.[2] eqv "Incoming Call").map(*.[4]).sum;
 
-                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Outgoing:", $outgoing / 3600);
-                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Incoming:", $incoming / 3600);
-                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Total:", ($incoming + $outgoing) / 3600);
+                $p1.put: "%-*s %s".sprintf($fmt, "Outgoing:", seconds-to-str($outgoing));
+                $p1.put: "%-*s %s".sprintf($fmt, "Incoming:", seconds-to-str($incoming));
+                $p1.put: "%-*s %s".sprintf($fmt, "Total:", seconds-to-str($outgoing + $incoming));
                 $p1.put: "";
 
                 $p1.put: "%-*s %d".sprintf($fmt, "Declined:",
@@ -117,6 +119,7 @@ multi sub MAIN (
     ui.interact;
     ui.shutdown;
 }
+
 
 multi sub MAIN(
     Bool :$version #= print version
