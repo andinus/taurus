@@ -20,7 +20,7 @@ multi sub MAIN (
         # 3: Timestamp, 4: Duration, 5: Sim used.
 
         # Turn the Hash to an Array.
-        @logs = @($log.IO.lines.skip[^200].hyper.map({$p.parse($_)})>>.{0..4}
+        @logs = @($log.IO.lines.skip.hyper.map({$p.parse($_)})>>.{0..4}
                   # Discard invalid phone numbers.
                   .grep(*.[1].chars >= $digits));
 
@@ -119,4 +119,4 @@ multi sub MAIN (
 
 multi sub MAIN(
     Bool :$version #= print version
-) is export { put "Lacerta v" ~ $?DISTRIBUTION.meta<version>; }
+) is export { put "Taurus v" ~ $?DISTRIBUTION.meta<version>; }
