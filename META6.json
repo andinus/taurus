@@ -11,6 +11,7 @@
     },
     "depends" : [
         "CSV::Parser",
+        "Terminal::UI",
         "Terminal::Spinners",
         "Text::Table::Simple"
     ],
