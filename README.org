@@ -68,5 +68,5 @@ Exported log file.
 
 Number of significant digits in phone numbers. Default is set to 10. If
 the number of digits is less than significant digits then the number is
-picked, if it's more then the initial extra digits are discarded
+discarded, if it's more then the initial extra digits are discarded
 (Country Code, etc.).
