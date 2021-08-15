@@ -51,7 +51,7 @@ multi sub MAIN (
             $f.draw;
             until $initial.status {
                 $p.splash: "Parsing logs" ~ (".  ", ".. ", "...")[$++ % 3];
-                sleep 0.8;
+                sleep 1;
             }
             $p.splash: "Parsed {@logs.elems} entries in {now - $timed}s.";
             $p.put: " " x 18 ~ "Ok";
@@ -83,9 +83,9 @@ multi sub MAIN (
                 my $outgoing = .grep(*.[2] eqv "Outgoing Call").map(*.[4]).sum;
                 my $incoming = .grep(*.[2] eqv "Incoming Call").map(*.[4]).sum;
 
-                $p1.put: sprintf("%-*s", $fmt, "Outgoing:") ~ $outgoing / 3600 ~ " hours" ;
-                $p1.put: sprintf("%-*s", $fmt, "Incoming:") ~ $incoming / 3600 ~ " hours";
-                $p1.put: sprintf("%-*s", $fmt, "Total:") ~ ($incoming + $outgoing) / 3600 ~ " hours";
+                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Outgoing:", $outgoing / 3600);
+                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Incoming:",  $incoming / 3600);
+                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Total:",  ($incoming + $outgoing) / 3600);
                 $p1.put: "";
             }
         } elsif %meta<number> -> $num {
@@ -99,16 +99,17 @@ multi sub MAIN (
                 my $outgoing = .grep(*.[2] eqv "Outgoing Call").map(*.[4]).sum;
                 my $incoming = .grep(*.[2] eqv "Incoming Call").map(*.[4]).sum;
 
-                $p1.put: sprintf("%-*s", $fmt, "Outgoing:") ~ $outgoing / 3600 ~ " hours";
-                $p1.put: sprintf("%-*s", $fmt, "Incoming:") ~ $incoming / 3600 ~ " hours";
-                $p1.put: sprintf("%-*s", $fmt, "Total:") ~ ($incoming + $outgoing) / 3600 ~ " hours";
+                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Outgoing:", $outgoing / 3600);
+                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Incoming:", $incoming / 3600);
+                $p1.put: "%-*s %.2f hours".sprintf($fmt, "Total:", ($incoming + $outgoing) / 3600);
                 $p1.put: "";
 
-                $p1.put: sprintf("%-*s", $fmt, "Declined:") ~ .grep(
-                    {$_.[2] eqv "Incoming Call" and $_.[4] == 0}).elems;
-                $p1.put: sprintf("%-*s", $fmt, "Declined (they):") ~ .grep(
-                    {$_.[2] eqv "Outgoing Call" and $_.[4] == 0}).elems;
-                $p1.put: sprintf("%-*s", $fmt, "Missed Calls:") ~ .grep(*.[2] eqv "Missed Call").elems;
+                $p1.put: "%-*s %d".sprintf($fmt, "Declined:",
+                                           .grep({$_.[2] eqv "Incoming Call" and $_.[4] == 0}).elems);
+                $p1.put: "%-*s %d".sprintf($fmt, "Declined (they):",
+                                           .grep({$_.[2] eqv "Outgoing Call" and $_.[4] == 0}).elems);
+                $p1.put: "%-*s %d".sprintf($fmt, "Missed Calls:",
+                                           .grep(*.[2] eqv "Missed Call").elems);
             }
         }
     }
