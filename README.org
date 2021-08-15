@@ -2,6 +2,7 @@
 #+subtitle: Taurus parses Call logs
 #+export_file_name: index
 #+setupfile: ~/.emacs.d/org-templates/projects.org
+#+startup: overview
 
 | Website         | https://andinus.nand.sh/taurus             |
 | Source          | https://git.tilde.institute/andinus/taurus |
@@ -70,3 +71,17 @@ Number of significant digits in phone numbers. Default is set to 10. If
 the number of digits is less than significant digits then the number is
 discarded, if it's more then the initial extra digits are discarded
 (Country Code, etc.).
+* News
+
+** v0.1.0 - 2021-08-15
+
+Initial Implementation.
+
++ Present overall stats.
++ Displays contact specific stats.
+  + Outgoing
+  + Incoming
+  + Total Call Time
+  + Declined
+  + They Declined
+  + Missed Calls
