@@ -77,11 +77,11 @@ multi sub MAIN (
     $p0.select-first;
     $p0.select(2);
     $p0.on: select => -> :%meta {
+        my Int $fmt = 16;
         if %meta<all> {
+            ui.focus(:pane(1));
             $p1.clear;
             with @logs {
-                my Int $fmt = 16;
-
                 my $outgoing = .grep(*.[2] eqv "Outgoing Call").map(*.[4]).sum;
                 my $incoming = .grep(*.[2] eqv "Incoming Call").map(*.[4]).sum;
 
@@ -90,9 +90,9 @@ multi sub MAIN (
                 $p1.put: "%-*s %s".sprintf($fmt, "Total:",  seconds-to-str($outgoing + $incoming));
                 $p1.put: "";
             }
+            $p1.select-first;
         } elsif %meta<number> -> $num {
-            my Int $fmt = 18;
-
+            ui.focus(:pane(1));
             $p1.clear;
             $p1.put: "Name:   " ~ $_ with %contacts{$num};
             $p1.put: "Number: " ~ $num;
@@ -113,6 +113,7 @@ multi sub MAIN (
                 $p1.put: "%-*s %d".sprintf($fmt, "Missed Calls:",
                                            .grep(*.[2] eqv "Missed Call").elems);
             }
+            $p1.select-first;
         }
     }
 
