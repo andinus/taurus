@@ -12,8 +12,7 @@
     "depends" : [
         "CSV::Parser",
         "Terminal::UI",
-        "Terminal::Spinners",
-        "Text::Table::Simple"
+        "Terminal::ANSI"
     ],
     "tags": [
         "Taurus", "Call logs", "Call"
