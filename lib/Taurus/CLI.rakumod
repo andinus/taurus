@@ -51,26 +51,17 @@ multi sub MAIN (
     my $p0 = ui.panes[0];
     my $p1 = ui.panes[1];
 
+    until $initial.status {
+        $p0.splash: "Parsing logs" ~ (".  ", ".. ", "...")[$++ % 3];
+        sleep 1;
+    }
+    $p0.splash: "Parsed {@logs.elems} entries in {now - $timed}s.";
+    $p0.select-last;
+    ui.get-key;
+    $p0.clear;
+
     $p0.put: t.bold ~ t.bg-cyan ~ t.black ~ t.underline ~ "Taurus v" ~ $?DISTRIBUTION.meta<version>;
     $p0.put: "";
-
-    with ui.screen.add-frame(:4height, :40width, :center) -> $f {
-        with $f.add-pane -> $p {
-            $f.draw;
-            until $initial.status {
-                $p.splash: "Parsing logs" ~ (".  ", ".. ", "...")[$++ % 3];
-                sleep 1;
-            }
-            $p.splash: "Parsed {@logs.elems} entries in {now - $timed}s.";
-            $p.put: " " x 18 ~ "Ok";
-            $p.select-last;
-            ui.focus($f);
-        }
-        ui.get-key;
-        ui.screen.remove-frame($f);
-        ui.focus($f);
-    }
-    ui.refresh;
 
     $p0.put: "- Show Records", :meta(:all);
     $p0.put: "";
