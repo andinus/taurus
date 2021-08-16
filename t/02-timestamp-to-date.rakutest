@@ -1,0 +1,7 @@
+use Test;
+use Taurus::Timestamp;
+
+plan 2;
+
+is-deeply timestamp-to-date("16/08/2021"), Date.new("2021-08-16"), "Date";
+is-deeply timestamp-to-date("16/08/2020  00:00 am"), Date.new("2020-08-16"), "Date with timestamp";
