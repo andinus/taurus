@@ -8,6 +8,15 @@
 | Source          | https://git.tilde.institute/andinus/taurus |
 | GitHub (mirror) | https://github.com/andinus/taurus          |
 
+* Demo
+
+This was recorded with ~asciinema~.
+
+[[https://asciinema.org/a/431154][https://asciinema.org/a/431154.png]]
+
++ Taurus v0.1.1: https://asciinema.org/a/431154
++ alt-link (download): https://andinus.nand.sh/static/taurus
+
 * Installation
 
 Taurus is released to ~fez~, you can get it from there or install it from

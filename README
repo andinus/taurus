@@ -9,6 +9,7 @@
 Table of Contents
 ─────────────────
 
+Demo
 Installation
 Documentation
 News
@@ -19,6 +20,20 @@ News
  Source           <https://git.tilde.institute/andinus/taurus>
  GitHub (mirror)  <https://github.com/andinus/taurus>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+
+Demo
+════
+
+  This was recorded with `asciinema'.
+
+  [https://asciinema.org/a/431154.png]
+
+  ⁃ Taurus v0.1.1: <https://asciinema.org/a/431154>
+  ⁃ alt-link (download): <https://andinus.nand.sh/static/taurus>
+
+
+[https://asciinema.org/a/431154.png] <https://asciinema.org/a/431154>
 
 
 Installation
