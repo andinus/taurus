@@ -70,7 +70,7 @@ multi sub MAIN (
     $p0.put: "";
     # First list Contacts, then sorted phone numbers.
     for @logs.race.map(*.[1]).unique.sort({%contacts{$_} // "Z", $_}) {
-        $p0.put: "- " ~ $_ ~ " {%contacts{$_} // ''}", :meta(:number($_));
+        $p0.put: "- " ~ $_ ~ "  {%contacts{$_} // ''}", :meta(:number($_));
     }
 
     $p1.clear;
@@ -91,7 +91,7 @@ multi sub MAIN (
             with @logs.grep(*.[3].year eqv $year) {
                 print-basic-stats($p1, $_);
                 $p1.put: "";
-                for .map(*.[3].month).unique -> $month {
+                for .map(*.[3].month).unique.sort -> $month {
                     $p1.put: "%-*s %s".sprintf($fmt, @month-name[$month] ~ ":",
                                                seconds-to-str(.grep(*.[3].month eqv $month).map(*.[4]).sum));
                 }
