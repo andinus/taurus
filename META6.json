@@ -1,7 +1,7 @@
 {
     "name" : "taurus",
     "auth" : "zef:andinus",
-    "version" : "0.1.0",
+    "version" : "0.1.1",
     "description" : "Taurus parses Call logs",
     "authors" : [ "Andinus <andinus@nand.sh>" ],
     "license" : "ISC",

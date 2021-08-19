@@ -82,6 +82,12 @@ discarded, if it's more then the initial extra digits are discarded
 (Country Code, etc.).
 * News
 
+** v0.1.1 - 2021-08-19
+
++ Better format for timestamps.
++ Add Yearly Records.
++ Add Monthly Records.
+
 ** v0.1.0 - 2021-08-15
 
 Initial Implementation.
