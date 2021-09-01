@@ -15,8 +15,6 @@ multi sub MAIN (
 ) is export {
     my @logs;
     my Str %contacts{Str};
-    my Str @month-name = <Month January February March April May June
-                         July August September October November December>;
 
     my Instant $timed = now;
     my Promise $initial = start {
@@ -86,16 +84,7 @@ multi sub MAIN (
         print-basic-stats($p1, @logs) with %meta<all>;
 
         with %meta<year> -> $year {
-            $p1.put: "Year: " ~ $year;
-            $p1.put: "";
-            with @logs.grep(*.[3].year eqv $year) {
-                print-basic-stats($p1, $_);
-                $p1.put: "";
-                for .map(*.[3].month).unique.sort -> $month {
-                    $p1.put: "%-*s %s".sprintf($fmt, @month-name[$month] ~ ":",
-                                               seconds-to-str(.grep(*.[3].month eqv $month).map(*.[4]).sum));
-                }
-            }
+            print-yearly-record($p1, @logs, $year);
         }
 
         with %meta<number> -> $num {
@@ -103,12 +92,30 @@ multi sub MAIN (
             $p1.put: "Number: " ~ $num;
             $p1.put: "";
             print-basic-stats($p1, @logs.grep(*.[1] eqv $num));
+
+            for @logs.map(*.[3].year).unique -> $year {
+                print-yearly-record($p1, @logs, $year);
+            }
         }
         $p1.select-first;
     }
 
     ui.interact;
     ui.shutdown;
+}
+
+sub print-yearly-record($p1, @logs, $year) {
+    constant $fmt = 16;
+    my Str @month-name = <Month January February March April May June
+                         July August September October November December>;
+    $p1.put: "";
+    $p1.put: "Year: " ~ $year;
+    with @logs.grep(*.[3].year eqv $year).cache {
+        for .map(*.[3].month).unique.sort -> $month {
+            $p1.put: "  %-*s %s".sprintf($fmt, @month-name[$month] ~ ":",
+                                         seconds-to-str(.grep(*.[3].month eqv $month).map(*.[4]).sum));
+        }
+    }
 }
 
 sub print-basic-stats($p1, @logs) {
